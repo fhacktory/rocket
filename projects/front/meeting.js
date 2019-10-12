@@ -1,20 +1,25 @@
-
+import environment from './environment.js';
 
 export default {
   total: 0,
   current: 0,
   width: 300,
+  join(name, salary) {
+    axios.post(`${environment.api}/meeting/join`, {
+      name,
+      salary
+    }).then(() => this.init());
+  },
   init() {
-    this.total = 1500;
+    this.total = 180;
     document.getElementById('init').style.display = 'none';
-    document.getElementById('progress-bar-container').style.display = 'block';
-    console.log(document.getElementById('progress-bar-container').style)
+    document.getElementById('progress-screen').style.display = 'block';
     const interval = setInterval(() => {
-      this.current += 100;
+      this.current += 1;
       if (this.current <= this.total) {
         document.getElementById('progress-bar').style.width = this.getCurrentWidth();
       } else {
-        document.getElementById('progress-bar-container').style.display = 'none';
+        document.getElementById('progress-screen').style.display = 'none';
         document.getElementById('game-over-screen').style.display = 'block';
         clearInterval(interval);
       }

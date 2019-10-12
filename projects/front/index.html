@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <title>Rocket</title>
   <style>
+    #progress-screen {
+      display: none;      
+    }
     #progress-bar-container {
-      display: none;
       height: 10px;
       width: 300px;
       border: 1px solid black;
@@ -25,13 +28,16 @@
 
   <h1>Rocket 🚀</h1>
 
-  <div id="init">
-    User: <input id="user" type="text">
+  <div id="init-screen">
+    Name: <input id="name" type="text">
+    Salary: <input id="salary" type="number">
     <button id="send">Connect</button>
   </div>
 
-  <div id="progress-bar-container">
-      <div id="progress-bar" width="0px"></div>
+  <div id="progress-screen">
+      <div id="progress-bar-container">
+          <div id="progress-bar" width="0px"></div>
+      </div>    
   </div>
 
   <div id="game-over-screen">
@@ -39,10 +45,12 @@
   </div>
 
   <script type="module">
-    import progress from './progress.js'
+    import meeting from './meeting.js'
 
     document.getElementById('send').addEventListener('click', () => {
-      progress.init(1500)
+      const name = document.getElementById('name').value
+      const salary = document.getElementById('salary').value
+      meeting.join(name, salary)
       console.log('Let\'s go');
     })
   </script>

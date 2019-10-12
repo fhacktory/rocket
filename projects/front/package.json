@@ -1,0 +1,16 @@
+{
+  "name": "rocket-front",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "http-server"
+  },
+  "author": "team-rocket",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}
