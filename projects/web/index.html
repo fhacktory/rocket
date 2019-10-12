@@ -111,10 +111,10 @@
         start meeting
       </button>
 
-      <div v-if="started">
+      <div>
         <div>{{ price }}€</div>
         <div id="progress-bar-container">
-          <div id="progress-bar" :style="{ width: width + 'px' }"></div>
+          <div id="progress-bar" :style="{ width: width + '%' }"></div>
         </div>
       </div>
     </div>
@@ -126,6 +126,7 @@
       const app = new Vue({
         el: "#app",
         data: {
+          width: 0,
           price: 0,
           meeting: null,
           joined: false,
@@ -150,6 +151,7 @@
           });
           socket.on("meeting:total-price", price => {
             this.price = Math.round(price);
+            this.width = this.getWidth();
           });
         },
         methods: {
@@ -163,11 +165,11 @@
             this.salary = null;
             this.joined = true;
           },
-        },
-        computed: {
-          width() {
-            if (this.started) {
-              return 10;
+          getWidth() {
+            if (this.meeting && this.meeting.startedAt) {
+              const { duration, startedAt } = this.meeting;
+              const elapsed = new Date().getTime() - new Date(startedAt).getTime();
+              return (100 * elapsed) / duration;
             }
 
             return 0;
