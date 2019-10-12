@@ -7,17 +7,28 @@
   </head>
   <body>
     <div id="app">
-      <p>Utilisateur: {{ message }}</p>
+      <h1>No bullshit meeting</h1>
+      {{ meeting }}
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const socket = io();
       const app = new Vue({
         el: "#app",
         data: {
-          message: "Hello Vue !",
+          meeting: null,
+        },
+        created() {
+          const socket = io();
+          socket.on("meeting", meeting => {
+            this.meeting = meeting;
+          });
+          socket.on("meeting:person-joined", person => {
+            this.meeting = {
+              ...this.meeting,
+              persons: [...this.meeting.persons, person],
+            };
+          });
         },
       });
     </script>
