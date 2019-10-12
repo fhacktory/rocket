@@ -55,7 +55,12 @@ app.post("/meeting/start", (req, res) => {
 
 app.post("/bs", (req, res) => {
   currentMeeting.incrementBsCounter();
-  console.log(currentMeeting.bsCounter);
+  request
+    .get(SCUD_LAUNCHER_ADDR + "/fire?length=1")
+    .on("response", () => {
+      res.status(200).end();
+    })
+    .on("error", () => res.status(500).end());
 });
 
 app.post("/fire", (req, res) => {
