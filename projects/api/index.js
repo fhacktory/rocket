@@ -10,7 +10,7 @@ const { Person, Meeting } = require("./model");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const FRONT_PATH = __dirname + "/../front";
+const FRONT_PATH = __dirname + "/../web";
 const SCUD_LAUNCHER_ADDR = "http://192.168.1.44:9999";
 
 // In memory Meeting
@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/costs", (req, res) => {
-  console.log(currentMeeting)
   costs = {
     total : currentMeeting.getTotalPrice().toFixed(0),
     costPerPerson : currentMeeting.persons.map(person => ({
@@ -33,7 +32,6 @@ app.get("/costs", (req, res) => {
       totalCost : person.getPrice(currentMeeting).toFixed(0)
     }))
   }
-  console.log(costs)
   res.send(costs);
 });
 
