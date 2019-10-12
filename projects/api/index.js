@@ -24,6 +24,19 @@ app.get("/", (req, res) => {
   res.sendFile(FRONT_PATH + "/index.html");
 });
 
+app.get("/costs", (req, res) => {
+  console.log(currentMeeting)
+  costs = {
+    total : currentMeeting.getTotalPrice().toFixed(0),
+    costPerPerson : currentMeeting.persons.map(person => ({
+      name : person.name,
+      totalCost : person.getPrice(currentMeeting).toFixed(0)
+    }))
+  }
+  console.log(costs)
+  res.send(costs);
+});
+
 app.post("/meeting/join", (req, res) => {
   const person = new Person({ ...req.body });
   currentMeeting.addPerson(person);
