@@ -19,7 +19,7 @@ struct ContentView: View {
             HStack {
                 Text("\(moneyCounter.moneyDescription) €").bold().font(.system(size: 25))
                 Spacer()
-                Text("💸")
+                Text("💸").font(.system(size:30))
             }.padding()
             if !timerStarted {
                 Button(action: {
@@ -33,11 +33,12 @@ struct ContentView: View {
                     }.padding()
                 })
             }
-            if moneyCounter.money > 300.0 {
+            if moneyCounter.money > 3.0 {
                 Button(action: {
+                    self.moneyCounter.launchRocket()
                     print("Fired !")
                 }, label: {
-                    Text("💥")
+                    Text("Fire someone 💥")
                     .font(.system(size: 50))
                 })
             }
