@@ -13,14 +13,42 @@
 
 <body>
   <div id="app">
-    <div class="card step1">
+    <div class="card step1 past">
       <h1>Créer une réunion</h1>
       <h2>De quelle durée sera la réunion ?</h2>
       <input v-model="duration" type="text" placeholder="Durée en minute">
       <button @click="createMeeting()">Créer la réunion</button>
     </div>
-    <div class="card step2 future">
-
+    <div class="card step2 past">
+      <h1>La réunion a été créée !</h1>
+      <p>Partagez la session : <a>rocketmeeting.com/room/a43D9</a></p>
+      <h2>Participants :</h2>
+      <ul>
+        <li class="badge">Adrien</li>
+        <li class="badge">Édouard</li>
+        <li class="badge">Nico</li>
+      </ul>
+      <button>Commencer la réunion(60min)</button>
+    </div>
+    <div class="card step3">
+      <h1>La réunion est en cours !</h1>
+      <div class="gauge_container"><div class="gauge"></div></div>
+      <div class="space_between_container">
+        <div class="label">Temps restant :</div>
+        <div class="label">Coût de la réunion :</div>
+      </div>
+      <div class="space_between_container">
+        <div class="label value">5 min</div>
+        <div class="emphasized value">578 €</div>
+      </div>
+      <div class="divider"></div>
+      <div class="bullshit_controller">
+          <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider round"></span>
+          </label>
+          <span class="label">Bullshit detector :</span><span class="label value">activé</span>
+      </div>
     </div>
   </div>
 
