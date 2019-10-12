@@ -13,8 +13,9 @@
       }
       #progress-bar-container {
         height: 10px;
-        width: 300px;
-        border: 1px solid black;
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid #eee;
       }
       #progress-bar {
         height: 10px;
@@ -65,11 +66,14 @@
         margin-top: 10px;
         float: right;
       }
+      .start {
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
     <div id="app">
-      <h1>Rocket 🚀</h1>
+      <h1>No bullshit meeting</h1>
       <div v-if="!started && !joined">
         <h3>Join the meeting</h3>
         <div class="form">
@@ -107,14 +111,14 @@
         </div>
       </div>
 
-      <button v-on:click.prevent="start()" v-if="joined">
-        start meeting
+      <button v-on:click.prevent="start()" v-if="!started" class="start">
+        🚀 start meeting
       </button>
 
       <div v-if="started">
         <div>{{ price }}€</div>
         <div id="progress-bar-container">
-          <div id="progress-bar" :style="{ width: width + 'px' }"></div>
+          <div id="progress-bar" :style="{ width: width + '%' }"></div>
         </div>
       </div>
     </div>
@@ -122,10 +126,12 @@
     <script type="module">
       import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js";
       import meeting from "./meeting.js";
+      import speech from "./speech.js";
 
       const app = new Vue({
         el: "#app",
         data: {
+          width: 0,
           price: 0,
           meeting: null,
           joined: false,
@@ -136,7 +142,7 @@
         created() {
           const socket = io();
           socket.on("meeting", meeting => {
-            this.isStarted = meeting.startedAt !== null;
+            this.started = meeting.startedAt !== null;
             this.meeting = meeting;
           });
           socket.on("meeting:person-joined", person => {
@@ -149,12 +155,14 @@
             this.meeting = { ...this.meeting, startedAt };
           });
           socket.on("meeting:total-price", price => {
-            this.price = Math.round(price);
+            this.price = price.toFixed(2);
+            this.width = this.getWidth();
           });
         },
         methods: {
           start() {
             meeting.start();
+            speech.init()
             this.started = true;
           },
           joinMeeting() {
@@ -163,11 +171,12 @@
             this.salary = null;
             this.joined = true;
           },
-        },
-        computed: {
-          width() {
-            if (this.started) {
-              return 10;
+          getWidth() {
+            if (this.meeting && this.meeting.startedAt) {
+              const { duration, startedAt } = this.meeting;
+              const elapsed =
+                new Date().getTime() - new Date(startedAt).getTime();
+              return (100 * elapsed) / duration;
             }
 
             return 0;
