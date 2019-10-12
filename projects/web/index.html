@@ -8,128 +8,119 @@
     <script src="/socket.io/socket.io.js"></script>
     <title>Rocket</title>
     <style>
-      #progress-screen {
-        display: none;
+      body {
+        width: 100vw;
+        background-image: url("./images/wallpaper.jpg");
+        background-size: cover;
+        font-family: Helvetica, Arial, sans-serif;
+        color: #031535;
       }
-      #progress-bar-container {
-        height: 10px;
-        overflow: hidden;
-        width: 100%;
-        border: 1px solid #eee;
+
+      .card {
+        position: absolute;
+        top: 220px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto;
+        width: 730px;
+        background: white;
+        border-radius: 20px;
+        padding: 16px 28px;
+        display: flex;
+        flex-direction: column;
+        transition: all ease-in .3s;
       }
-      #progress-bar {
-        height: 10px;
-        background-color: rebeccapurple;
+
+      .past {
+        opacity: 0;
+        transform: translate(-50px, 0px);
+        z-index: 100;
       }
-      #game-over-screen {
-        display: none;
+
+      .future {
+        opacity: 0;
+        transform: translate(50px, 0px);
+        z-index: -100;
       }
-      #app {
-        width: 300px;
-        margin: 0 auto;
+
+      input {
+        height: 36px;
+        background: #F5F5F5;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        padding: 0 12px;
+        transition: all ease-in .3s;
       }
-      .list-item {
-        padding: 10px 8px;
-        border: 1px solid #eee;
-        border-bottom: none;
+
+      input:hover {
+        background: #e8e8e8;
       }
-      .list-item:last-child {
-        border-bottom: 1px solid #eee;
+
+      ::placeholder {
+        color: #031535;
+        opacity: .5; 
+        font-size: 14px;
       }
-      .form {
-        padding: 10px 8px;
-        overflow: hidden;
-        border: 1px solid #eee;
-      }
-      .field input {
-        display: block;
-        width: 100%;
-      }
-      .field label {
-        font-size: 0.8em;
-      }
+
       button {
-        padding: 6px 8px;
-        background: #fff;
-        border: 2px solid #eee;
+        margin-top: 20px;
+        height: 44px;
+        width: 80%;
+        background: #FF0050;
+        color: white;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        font-size: 20px;
+        font-weight: 400;
+        align-self: center;
+        transition: all ease-in .3s;
       }
-      button:disabled {
-        cursor: not-allowed;
-      }
+
       button:hover {
-        background: #eee;
+        background: #CF1650;
+        cursor: pointer;
       }
-      button:disabled:hover {
-        background: #fff;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 300;
       }
-      .form button {
-        margin-top: 10px;
-        float: right;
+
+      .step1 {
+        height: 270px;
       }
-      .start {
-        margin-top: 10px;
+
+      .step2 {
+        height: 450px;
       }
+
+      .step3 {
+        height: 400px;
+      }
+
     </style>
   </head>
   <body>
-    <div id="app">
-      <h1>No bullshit meeting</h1>
-      <div v-if="!started && !joined">
-        <h3>Join the meeting</h3>
-        <div class="form">
-          <div class="field">
-            <label for="name">Your name</label>
-            <input
-              id="name"
-              type="text"
-              placeholder="Jacques Chirac"
-              v-model="name"
-            />
-          </div>
-          <div class="field">
-            <label for="salary">Salary</label>
-            <input
-              id="salary"
-              type="number"
-              placeholder="30000"
-              v-model="salary"
-            />
-          </div>
-          <button
-            v-on:click.prevent="joinMeeting()"
-            v-bind:disabled="name.length && !salary"
-          >
-            Join meeting
-          </button>
-        </div>
-      </div>
-
-      <div v-if="meeting && meeting.persons">
-        <h3>Currently here</h3>
-        <div v-for="person in meeting.persons" class="list-item">
-          {{ person.name }}
-        </div>
-      </div>
-
-      <button v-on:click.prevent="start()" v-if="!started" class="start">
-        🚀 start meeting
-      </button>
-
-      <div v-if="started">
-        <div>{{ price }}€</div>
-        <div id="progress-bar-container">
-          <div id="progress-bar" :style="{ width: width + '%' }"></div>
-        </div>
-      </div>
+    <div class="card step1">
+      <h1>Créer une réunion</h1>
+      <h2>De quelle durée sera la réunion ?</h2>
+      <input type="text" placeholder="Durée en minute"></input>
+      <button>Créer la réunion</button>
     </div>
+    <div class="card step2 future">
 
+    </div>
     <script type="module">
       import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js";
       import meeting from "./meeting.js";
       import speech from "./speech.js";
 
       const app = new Vue({
-        el: "#app",
+        el: ".card",
         data: {
           width: 0,
           price: 0,
