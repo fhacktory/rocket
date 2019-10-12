@@ -35,6 +35,9 @@ app.post("/meeting/join", (req, res) => {
 app.post("/meeting/start", (req, res) => {
   currentMeeting.start();
   io.emit("meeting:started", currentMeeting.startedAt);
+  setInterval(() => {
+    io.emit("meeting:total-price", currentMeeting.getTotalPrice());
+  }, 1000);
   res.status(200).end();
 });
 

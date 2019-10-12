@@ -1,60 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>  
-  <title>Rocket</title>
-  <style>
-    #progress-screen {
-      display: none;      
-    }
-    #progress-bar-container {
-      height: 10px;
-      width: 300px;
-      border: 1px solid black;
-    }
-    #progress-bar {
-      height:10px;
-      background-color: rebeccapurple;
-    }
-    #game-over-screen {
-      display: none;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Rocket</title>
+    <style>
+      #progress-screen {
+        display: none;
+      }
+      #progress-bar-container {
+        height: 10px;
+        width: 300px;
+        border: 1px solid black;
+      }
+      #progress-bar {
+        height: 10px;
+        background-color: rebeccapurple;
+      }
+      #game-over-screen {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Rocket 🚀</h1>
 
-  <h1>Rocket 🚀</h1>
+    <div id="init-screen">
+      Name: <input id="name" type="text" /> Salary:
+      <input id="salary" type="number" />
+      <button id="send">Connect</button>
+    </div>
 
-  <div id="init-screen">
-    Name: <input id="name" type="text">
-    Salary: <input id="salary" type="number">
-    <button id="send">Connect</button>
-  </div>
+    <button id="start">
+      start
+    </button>
 
-  <div id="progress-screen">
-    <div id="current-price"></div>
+    <div id="progress-screen">
+      <div id="current-price"></div>
       <div id="progress-bar-container">
-          <div id="progress-bar" width="0px"></div>
-      </div>    
-  </div>
+        <div id="progress-bar" width="0px"></div>
+      </div>
+    </div>
 
-  <div id="game-over-screen">
-    Game Over !
-  </div>
+    <div id="game-over-screen">
+      Game Over !
+    </div>
 
-  <script type="module">
-    import meeting from './meeting.js'
+    <script type="module">
+      import meeting from "./meeting.js";
 
-    document.getElementById('send').addEventListener('click', () => {
-      const name = document.getElementById('name').value
-      const salary = document.getElementById('salary').value
-      meeting.join(name, salary)
-      console.log('Let\'s go');
-    })
-  </script>
-</body>
+      document.getElementById("send").addEventListener("click", () => {
+        const name = document.getElementById("name").value;
+        const salary = document.getElementById("salary").value;
+        meeting.join(name, salary);
+        console.log("Let's go");
+      });
+
+      document.getElementById("start").addEventListener("click", () => {
+        meeting.start();
+      });
+    </script>
+  </body>
 </html>
