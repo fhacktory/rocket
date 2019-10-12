@@ -1,3 +1,4 @@
+const express = require("express");
 const app = require("express")();
 const bodyParser = require("body-parser");
 const http = require("http").createServer(app);
@@ -16,8 +17,12 @@ const currentMeeting = new Meeting({
   duration: 1000 * 60 * 3, // 3m
 });
 
+const frontPath = __dirname + "/../front";
+
+app.use(express.static(frontPath));
+
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(frontPath + "/index.html");
 });
 
 app.post("/meeting/join", (req, res) => {
