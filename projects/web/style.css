@@ -1,0 +1,93 @@
+body {
+  width: 100vw;
+  background-image: url("./images/wallpaper.jpg");
+  background-size: cover;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #031535;
+}
+
+.card {
+  position: absolute;
+  top: 220px;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  width: 730px;
+  background: white;
+  border-radius: 20px;
+  padding: 16px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all ease-in .3s;
+}
+
+.past {
+  opacity: 0;
+  transform: translate(-50px, 0px);
+  z-index: 100;
+}
+
+.future {
+  opacity: 0;
+  transform: translate(50px, 0px);
+  z-index: -100;
+}
+
+input {
+  height: 36px;
+  background: #F5F5F5;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  transition: all ease-in .3s;
+}
+
+input:hover {
+  background: #e8e8e8;
+}
+
+::placeholder {
+  color: #031535;
+  opacity: .5; 
+  font-size: 14px;
+}
+
+button {
+  margin-top: 20px;
+  height: 44px;
+  width: 80%;
+  background: #FF0050;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  font-size: 20px;
+  font-weight: 400;
+  align-self: center;
+  transition: all ease-in .3s;
+}
+
+button:hover {
+  background: #CF1650;
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.step1 {
+  height: 270px;
+}
+
+.step2 {
+  height: 450px;
+}
+
+.step3 {
+  height: 400px;
+}

@@ -3,7 +3,8 @@
 const getPricePerSecond = salary => salary / 200 / 7 / 60 / 60;
 
 class Person {
-  constructor({ name, salary }) {
+  constructor({ id, name, salary }) {
+    this.id = id;
     this.name = name;
     this.salary = salary;
   }

@@ -3,7 +3,7 @@ const BS_WORDS = [
   'deadline',
   'urgent',
   'marketing',
-  'business'
+  'business',
 ]
 
 window.SpeechRecognition = window.SpeechRecognition ||

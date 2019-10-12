@@ -1,179 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <title>Rocket</title>
-    <style>
-      body {
-        width: 100vw;
-        background-image: url("./images/wallpaper.jpg");
-        background-size: cover;
-        font-family: Helvetica, Arial, sans-serif;
-        color: #031535;
-      }
 
-      .card {
-        position: absolute;
-        top: 220px;
-        left: 0; 
-        right: 0; 
-        margin-left: auto; 
-        margin-right: auto;
-        width: 730px;
-        background: white;
-        border-radius: 20px;
-        padding: 16px 28px;
-        display: flex;
-        flex-direction: column;
-        transition: all ease-in .3s;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <title>Rocket</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-      .past {
-        opacity: 0;
-        transform: translate(-50px, 0px);
-        z-index: 100;
-      }
-
-      .future {
-        opacity: 0;
-        transform: translate(50px, 0px);
-        z-index: -100;
-      }
-
-      input {
-        height: 36px;
-        background: #F5F5F5;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        padding: 0 12px;
-        transition: all ease-in .3s;
-      }
-
-      input:hover {
-        background: #e8e8e8;
-      }
-
-      ::placeholder {
-        color: #031535;
-        opacity: .5; 
-        font-size: 14px;
-      }
-
-      button {
-        margin-top: 20px;
-        height: 44px;
-        width: 80%;
-        background: #FF0050;
-        color: white;
-        text-transform: uppercase;
-        border: none;
-        border-radius: 10px;
-        outline: none;
-        font-size: 20px;
-        font-weight: 400;
-        align-self: center;
-        transition: all ease-in .3s;
-      }
-
-      button:hover {
-        background: #CF1650;
-        cursor: pointer;
-      }
-
-      h2 {
-        font-size: 20px;
-        font-weight: 300;
-      }
-
-      .step1 {
-        height: 270px;
-      }
-
-      .step2 {
-        height: 450px;
-      }
-
-      .step3 {
-        height: 400px;
-      }
-
-    </style>
-  </head>
-  <body>
+<body>
+  <div id="app">
     <div class="card step1">
       <h1>Créer une réunion</h1>
       <h2>De quelle durée sera la réunion ?</h2>
-      <input type="text" placeholder="Durée en minute"></input>
-      <button>Créer la réunion</button>
+      <input v-model="duration" type="text" placeholder="Durée en minute">
+      <button @click="createMeeting()">Créer la réunion</button>
     </div>
     <div class="card step2 future">
 
     </div>
-    <script type="module">
-      import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js";
-      import meeting from "./meeting.js";
-      import speech from "./speech.js";
+  </div>
 
-      const app = new Vue({
-        el: ".card",
-        data: {
-          width: 0,
-          price: 0,
-          meeting: null,
-          joined: false,
-          started: false,
-          name: "",
-          salary: null,
-        },
-        created() {
-          const socket = io();
-          socket.on("meeting", meeting => {
-            this.started = meeting.startedAt !== null;
-            this.meeting = meeting;
-          });
-          socket.on("meeting:person-joined", person => {
-            this.meeting = {
-              ...this.meeting,
-              persons: [...this.meeting.persons, person],
-            };
-          });
-          socket.on("meeting:started", startedAt => {
-            this.meeting = { ...this.meeting, startedAt };
-          });
-          socket.on("meeting:total-price", price => {
-            this.price = price.toFixed(2);
-            this.width = this.getWidth();
-          });
-        },
-        methods: {
-          start() {
-            meeting.start();
-            speech.init()
-            this.started = true;
-          },
-          joinMeeting() {
-            meeting.join({ name: this.name, salary: this.salary });
-            this.name = "";
-            this.salary = null;
-            this.joined = true;
-          },
-          getWidth() {
-            if (this.meeting && this.meeting.startedAt) {
-              const { duration, startedAt } = this.meeting;
-              const elapsed =
-                new Date().getTime() - new Date(startedAt).getTime();
-              return (100 * elapsed) / duration;
-            }
+  <script type="module">
+    import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js";
+    import meeting from "./meeting.js";
+    import speech from "./speech.js";
 
-            return 0;
-          },
+    const app = new Vue({
+      el: ".card",
+      data: {
+        duration: null,
+        width: 0,
+        price: 0,
+        meeting: null,
+        joined: false,
+        started: false,
+        name: "",
+        salary: null,
+      },
+      created() {
+        const socket = io();
+        socket.on("meeting", meeting => {
+          this.started = meeting && meeting.startedAt !== null;
+          this.meeting = meeting;
+        });
+        socket.on("meeting:person-joined", person => {
+          this.meeting = {
+            ...this.meeting,
+            persons: [...this.meeting.persons, person],
+          };
+        });
+        socket.on("meeting:started", startedAt => {
+          this.meeting = { ...this.meeting, startedAt };
+        });
+        socket.on("meeting:total-price", price => {
+          this.price = price.toFixed(2);
+          this.width = this.getWidth();
+        });
+      },
+      methods: {
+        createMeeting() {
+          meeting.create({
+            duration: this.duration,
+          });
         },
-      });
-    </script>
-  </body>
+        start() {
+          meeting.start();
+          speech.init()
+          this.started = true;
+        },
+        joinMeeting() {
+          meeting.join({ name: this.name, salary: this.salary });
+          this.name = "";
+          this.salary = null;
+          this.joined = true;
+        },
+        getWidth() {
+          if (this.meeting && this.meeting.startedAt) {
+            const { duration, startedAt } = this.meeting;
+            const elapsed =
+              new Date().getTime() - new Date(startedAt).getTime();
+            return (100 * elapsed) / duration;
+          }
+
+          return 0;
+        },
+      },
+    });
+  </script>
+</body>
+
 </html>
