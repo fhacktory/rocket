@@ -2,13 +2,12 @@ export default {
   total: 0,
   current: 0,
   width: 300,
-  join(name, salary) {
+  join({name, salary}) {
     axios
       .post("/meeting/join", {
         name,
         salary,
-      })
-      .then(() => this.init());
+      });
   },
   start() {
     axios.post("/meeting/start");

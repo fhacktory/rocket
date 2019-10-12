@@ -26,41 +26,83 @@
     </style>
   </head>
   <body>
-    <h1>Rocket 🚀</h1>
+    <div id="app">
+      <h1>Rocket 🚀</h1>
+      <div v-if="!started">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" type="text" v-model="name" />
+        </div>
+        <div>
+          <label for="salary">Salary</label>
+          <input id="salary" type="number" v-model="salary" />
+        </div>
+        <button
+          v-on:click.prevent="joinMeeting()"
+          v-bind:disabled="name.length && !salary"
+        >
+          Join meeting
+        </button>
+      </div>
 
-    <div id="init-screen">
-      Name: <input id="name" type="text" /> Salary:
-      <input id="salary" type="number" />
-      <button id="send">Connect</button>
-    </div>
+      <div v-if="meeting && meeting.persons">
+        Meeting with:
+        <div v-for="person in meeting.persons">
+          {{ person.name }}
+        </div>
+      </div>
 
-    <button id="start">
-      start
-    </button>
+      <button v-on:click.prevent="start()">
+        start meeting
+      </button>
 
-    <div id="progress-screen">
-      <div id="current-price"></div>
-      <div id="progress-bar-container">
-        <div id="progress-bar" width="0px"></div>
+      <div id="progress-screen">
+        <div id="current-price"></div>
+        <div id="progress-bar-container">
+          <div id="progress-bar" width="0px"></div>
+        </div>
+      </div>
+
+      <div id="game-over-screen">
+        Game Over !
       </div>
     </div>
 
-    <div id="game-over-screen">
-      Game Over !
-    </div>
-
     <script type="module">
+      import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js";
       import meeting from "./meeting.js";
 
-      document.getElementById("send").addEventListener("click", () => {
-        const name = document.getElementById("name").value;
-        const salary = document.getElementById("salary").value;
-        meeting.join(name, salary);
-        console.log("Let's go");
-      });
-
-      document.getElementById("start").addEventListener("click", () => {
-        meeting.start();
+      const app = new Vue({
+        el: "#app",
+        data: {
+          meeting: null,
+          started: false,
+          name: "",
+          salary: null,
+        },
+        created() {
+          const socket = io();
+          socket.on("meeting", meeting => {
+            this.isStarted = meeting.startedAt !== null;
+            this.meeting = meeting;
+          });
+          socket.on("meeting:person-joined", person => {
+            this.meeting = {
+              ...this.meeting,
+              persons: [...this.meeting.persons, person],
+            };
+          });
+        },
+        methods: {
+          start() {
+            meeting.start();
+          },
+          joinMeeting() {
+            meeting.join({ name: this.name, salary: this.salary });
+            this.name = "";
+            this.salary = null;
+          },
+        },
       });
     </script>
   </body>
