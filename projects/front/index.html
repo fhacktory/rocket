@@ -23,48 +23,99 @@
       #game-over-screen {
         display: none;
       }
+      #app {
+        width: 300px;
+        margin: 0 auto;
+      }
+      .list-item {
+        padding: 10px 8px;
+        border: 1px solid #eee;
+        border-bottom: none;
+      }
+      .list-item:last-child {
+        border-bottom: 1px solid #eee;
+      }
+      .form {
+        padding: 10px 8px;
+        overflow: hidden;
+        border: 1px solid #eee;
+      }
+      .field input {
+        display: block;
+        width: 100%;
+      }
+      .field label {
+        font-size: 0.8em;
+      }
+      button {
+        padding: 6px 8px;
+        background: #fff;
+        border: 2px solid #eee;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      button:hover {
+        background: #eee;
+      }
+      button:disabled:hover {
+        background: #fff;
+      }
+      .form button {
+        margin-top: 10px;
+        float: right;
+      }
     </style>
   </head>
   <body>
     <div id="app">
       <h1>Rocket 🚀</h1>
-      <div v-if="!started">
-        <div>
-          <label for="name">Name</label>
-          <input id="name" type="text" v-model="name" />
+      <div v-if="!started && !joined">
+        <h3>Join the meeting</h3>
+        <div class="form">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Jacques Chirac"
+              v-model="name"
+            />
+          </div>
+          <div class="field">
+            <label for="salary">Salary</label>
+            <input
+              id="salary"
+              type="number"
+              placeholder="30000"
+              v-model="salary"
+            />
+          </div>
+          <button
+            v-on:click.prevent="joinMeeting()"
+            v-bind:disabled="name.length && !salary"
+          >
+            Join meeting
+          </button>
         </div>
-        <div>
-          <label for="salary">Salary</label>
-          <input id="salary" type="number" v-model="salary" />
-        </div>
-        <button
-          v-on:click.prevent="joinMeeting()"
-          v-bind:disabled="name.length && !salary"
-        >
-          Join meeting
-        </button>
       </div>
 
       <div v-if="meeting && meeting.persons">
-        Meeting with:
-        <div v-for="person in meeting.persons">
+        <h3>Currently here</h3>
+        <div v-for="person in meeting.persons" class="list-item">
           {{ person.name }}
         </div>
       </div>
 
-      <button v-on:click.prevent="start()">
+      <button v-on:click.prevent="start()" v-if="joined">
         start meeting
       </button>
 
-      <div id="progress-screen">
-        <div id="current-price"></div>
+      <div v-if="started">
+        <div>{{ price }}€</div>
         <div id="progress-bar-container">
-          <div id="progress-bar" width="0px"></div>
+          <div id="progress-bar" :style="{ width: width + 'px' }"></div>
         </div>
-      </div>
-
-      <div id="game-over-screen">
-        Game Over !
       </div>
     </div>
 
@@ -75,7 +126,9 @@
       const app = new Vue({
         el: "#app",
         data: {
+          price: 0,
           meeting: null,
+          joined: false,
           started: false,
           name: "",
           salary: null,
@@ -92,15 +145,32 @@
               persons: [...this.meeting.persons, person],
             };
           });
+          socket.on("meeting:started", startedAt => {
+            this.meeting = { ...this.meeting, startedAt };
+          });
+          socket.on("meeting:total-price", price => {
+            this.price = Math.round(price);
+          });
         },
         methods: {
           start() {
             meeting.start();
+            this.started = true;
           },
           joinMeeting() {
             meeting.join({ name: this.name, salary: this.salary });
             this.name = "";
             this.salary = null;
+            this.joined = true;
+          },
+        },
+        computed: {
+          width() {
+            if (this.started) {
+              return 10;
+            }
+
+            return 0;
           },
         },
       });
