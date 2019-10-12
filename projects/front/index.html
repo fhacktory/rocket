@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>  
   <title>Rocket</title>
   <style>
     #progress-screen {
@@ -35,6 +36,7 @@
   </div>
 
   <div id="progress-screen">
+    <div id="current-price"></div>
       <div id="progress-bar-container">
           <div id="progress-bar" width="0px"></div>
       </div>    

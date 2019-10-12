@@ -5,12 +5,13 @@ export default {
   current: 0,
   width: 300,
   join(name, salary) {
-    axios.post(`${environment.api}/meeting/join`, {
+    axios.post('/meeting/join', {
       name,
       salary
     }).then(() => this.init());
   },
   init() {
+    const socket = io();
     this.total = 180;
     document.getElementById('init').style.display = 'none';
     document.getElementById('progress-screen').style.display = 'block';
