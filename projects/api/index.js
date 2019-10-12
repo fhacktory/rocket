@@ -1,28 +1,27 @@
 const express = require("express");
 const app = require("express")();
 const bodyParser = require("body-parser");
+const request = require("request");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
-const { execSync } = require("child_process");
 
 const { Person, Meeting } = require("./model");
-
-const missileLauncher = command =>
-  execSync("sudo " + __dirname + "/bin/missilelauncher " + command);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const FRONT_PATH = __dirname + "/../front";
+const SCUD_LAUNCHER_ADDR = "http://192.168.1.44:9999";
+
+// In memory Meeting
 const currentMeeting = new Meeting({
   duration: 1000 * 60 * 3, // 3m
 });
 
-const frontPath = __dirname + "/../front";
-
-app.use(express.static(frontPath));
+app.use(express.static(FRONT_PATH));
 
 app.get("/", (req, res) => {
-  res.sendFile(frontPath + "/index.html");
+  res.sendFile(FRONT_PATH + "/index.html");
 });
 
 app.post("/meeting/join", (req, res) => {
@@ -42,8 +41,12 @@ app.post("/meeting/start", (req, res) => {
 });
 
 app.post("/fire", (req, res) => {
-  missileLauncher('fire');
-  res.end();
+  request
+    .get(SCUD_LAUNCHER_ADDR + "/fire?length=1")
+    .on("response", () => {
+      res.status(200).end();
+    })
+    .on("error", () => res.status(500).end());
 });
 
 io.on("connection", socket => {
