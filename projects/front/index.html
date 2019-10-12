@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rocket</title>
+  <style>
+    .progress-bar-container {
+      height: 10px;
+      width: 300px;
+      border: 1px solid black;
+    }
+  .progress-bar {
+    height:10px;
+    background-color: rebeccapurple;
+  }
+  </style>
+</head>
+<body>
+
+  <h1>Rocket</h1>
+
+  <div class="progress-bar-container">
+      <div class="progress-bar" width="0px"></div>
+  </div>
+
+  <script type="module">
+    import progress from './progress.js'
+    progress.init(1500)
+  </script>
+</body>
+</html>
