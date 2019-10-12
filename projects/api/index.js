@@ -18,7 +18,7 @@ const currentMeeting = new Meeting({
   duration: 1000 * 60 * 3, // 3m
 });
 
-app.use(express.static(FRONT_PATH));
+app.use(express.static(FRONT_PATH, { maxAge: 0 }));
 
 app.get("/", (req, res) => {
   res.sendFile(FRONT_PATH + "/index.html");
@@ -26,12 +26,12 @@ app.get("/", (req, res) => {
 
 app.get("/costs", (req, res) => {
   costs = {
-    total : currentMeeting.getTotalPrice().toFixed(0),
-    costPerPerson : currentMeeting.persons.map(person => ({
-      name : person.name,
-      totalCost : person.getPrice(currentMeeting).toFixed(0)
-    }))
-  }
+    total: currentMeeting.getTotalPrice().toFixed(0),
+    costPerPerson: currentMeeting.persons.map(person => ({
+      name: person.name,
+      totalCost: person.getPrice(currentMeeting).toFixed(0),
+    })),
+  };
   res.send(costs);
 });
 
