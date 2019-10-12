@@ -1,5 +1,3 @@
-import environment from './environment.js';
-
 export default {
   total: 0,
   current: 0,
@@ -12,6 +10,9 @@ export default {
   },
   init() {
     const socket = io();
+    socket.on('get meeting price', (price) => {
+      document.getElementById('current-price').innerText = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+    }),
     this.total = 180;
     document.getElementById('init').style.display = 'none';
     document.getElementById('progress-screen').style.display = 'block';
