@@ -5,13 +5,17 @@ export default {
   current: 0,
   width: 300,
   init() {
-    this.total = 1500
+    this.total = 1500;
+    document.getElementById('init').style.display = 'none';
+    document.getElementById('progress-bar-container').style.display = 'block';
+    console.log(document.getElementById('progress-bar-container').style)
     const interval = setInterval(() => {
-      this.current += 100
+      this.current += 100;
       if (this.current <= this.total) {
-        document.getElementsByClassName('progress-bar')[0].style.width = this.getCurrentWidth()
+        document.getElementById('progress-bar').style.width = this.getCurrentWidth();
       } else {
-        document.getElementsByClassName('progress-bar-container')[0].innerHTML = 'Game over';
+        document.getElementById('progress-bar-container').style.display = 'none';
+        document.getElementById('game-over-screen').style.display = 'block';
         clearInterval(interval);
       }
     }, 1000)
