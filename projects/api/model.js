@@ -20,6 +20,7 @@ class Meeting {
     this.startedAt = null;
     this.duration = duration;
     this.persons = [];
+    this.bsCounter = 0;
   }
 
   start() {
@@ -28,6 +29,10 @@ class Meeting {
 
   addPerson(person) {
     this.persons.push(person);
+  }
+
+  incrementBsCounter() {
+    this.bsCounter++;
   }
 
   getTotalPrice() {

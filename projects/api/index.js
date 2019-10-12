@@ -53,6 +53,11 @@ app.post("/meeting/start", (req, res) => {
   res.status(200).end();
 });
 
+app.post("/bs", (req, res) => {
+  currentMeeting.incrementBsCounter();
+  console.log(currentMeeting.bsCounter);
+});
+
 app.post("/fire", (req, res) => {
   request
     .get(SCUD_LAUNCHER_ADDR + "/fire?length=1")
