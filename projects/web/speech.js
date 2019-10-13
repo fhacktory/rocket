@@ -53,7 +53,7 @@ export default {
     }
   },
   stopListening() {
-    recognizer.stop();
+    recognizer && recognizer.stop();
     console.log('Recognition stopped');
   }
 }

@@ -74,30 +74,30 @@
         width: 0,
         price: 0,
         meeting: null,
-        joined: false,
-        started: false,
-        name: "",
-        salary: null,
+        // joined: false,
+        // started: false,
+        // name: "",
+        // salary: null,
       },
       created() {
 
-        // 💩
+        // 💩 : in order to compute from now date
         setInterval(() => {
           this.now = new Date()
         }, 1000)
 
 
         const socket = io();
-        socket.on("meeting", meeting => {
-          this.started = meeting && meeting.startedAt !== null;
-          this.meeting = meeting;
-        });
-        socket.on("meeting:person-joined", person => {
-          this.meeting = {
-            ...this.meeting,
-            persons: [...this.meeting.persons, person],
-          };
-        });
+        // socket.on("meeting", meeting => {
+        //   // this.started = meeting && meeting.startedAt !== null;
+        //   this.meeting = meeting;
+        // });
+        // socket.on("meeting:person-joined", person => {
+        //   this.meeting = {
+        //     ...this.meeting,
+        //     persons: [...this.meeting.persons, person],
+        //   };
+        // });
         socket.on("meeting:started", startedAt => {
           this.meeting = { ...this.meeting, startedAt };
         });
@@ -138,8 +138,9 @@
           this.step = 3;
         },
         toggleListening() {
-          speech.init();
           this.listening = !this.listening;
+          if (this.listening) speech.init();
+          else speech.stopListening();
         },
         // joinMeeting() {
         //   meeting.join({ name: this.name, salary: this.salary });

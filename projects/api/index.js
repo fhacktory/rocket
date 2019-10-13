@@ -56,11 +56,11 @@ app.get('/persons', (req, res) => {
   res.send(currentMeeting.persons)
 });
 
-app.post("/meeting/join", (req, res) => {
-  const person = currentMeeting.persons.find(person => person.id === req.body.id)
-  io.emit("meeting:person-joined", person);
-  res.status(200).end();
-});
+// app.post("/meeting/join", (req, res) => {
+//   const person = currentMeeting.persons.find(person => person.id === req.body.id)
+//   io.emit("meeting:person-joined", person);
+//   res.status(200).end();
+// });
 
 app.post("/meeting/start", (req, res) => {
   currentMeeting.start();
@@ -94,8 +94,8 @@ app.post("/fire", (req, res) => {
     .on("error", () => res.status(500).end());
 });
 
-io.on("connection", socket => {
-  socket.emit("meeting", currentMeeting);
-});
+// io.on("connection", socket => {
+//   socket.emit("meeting", currentMeeting);
+// });
 
 http.listen(process.env.PORT || 3000);
