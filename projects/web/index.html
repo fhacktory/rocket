@@ -61,9 +61,9 @@
       </div>
     </div>
     <div class="card step4" :class="{ future: step < 4 }">
-      <h1>La réunion est terminée !</h1>
+      <h1>La réunion est en train de déborder !!! 😡</h1>
       <div class="gauge_container">
-        <div class="gauge" v-bind:style="{ width: '100%' }"></div>
+        <div class="gauge errorBackground" v-bind:style="{ width: '100%' }"></div>
       </div>
       <div class="space_between_container">
         <div></div>
@@ -71,13 +71,22 @@
       </div>
       <div class="space_between_container">
         <div></div>
-        <div class="emphasized value">{{ price }} €</div>
+        <div class="emphasized errorLabel">{{ price }} €</div>
       </div>
-      <a :href="'https://www.paypal.me/adrienredon/' + price">
-        <lottie-player src="https://assets4.lottiefiles.com/temp/lf20_Dyby8d.json" background="transparent" speed="1" style="width: 100%; height: auto;"
-          loop autoplay>
-        </lottie-player>
-      </a>
+    </div>
+    <div class="lottie_container" :class="{ future: step < 4 }">
+        <a :href="'https://www.paypal.me/adrienredon/' + price">
+          <lottie-player src="https://assets4.lottiefiles.com/temp/lf20_Dyby8d.json" background="transparent" speed="1" style="width: 100%; height: auto;"
+            loop autoplay>
+          </lottie-player>
+        </a>
+    </div>
+    <div class="lottie_container position-left" :class="{ future: step < 4 }">
+        <a :href="'https://www.paypal.me/adrienredon/' + price">
+          <lottie-player src="https://assets4.lottiefiles.com/temp/lf20_Dyby8d.json" background="transparent" speed="1" style="width: 100%; height: auto;"
+            loop autoplay>
+          </lottie-player>
+        </a>
     </div>
   </div>
 
@@ -97,35 +106,21 @@
         width: 0,
         price: 0,
         meeting: null,
-        // joined: false,
-        // started: false,
-        // name: "",
-        // salary: null,
       },
       created() {
 
         const socket = io();
-        // socket.on("meeting", meeting => {
-        //   // this.started = meeting && meeting.startedAt !== null;
-        //   this.meeting = meeting;
-        // });
-        // socket.on("meeting:person-joined", person => {
-        //   this.meeting = {
-        //     ...this.meeting,
-        //     persons: [...this.meeting.persons, person],
-        //   };
-        // });
         socket.on("meeting:started", startedAt => {
           this.meeting = { ...this.meeting, startedAt };
         });
         socket.on("meeting:state", ({ price, remaining }) => {
           this.remaining = remaining;
-          if (remaining.floatMin <= 0) {
+          if (this.step === 3 && remaining.floatMin <= 0) {
             this.step = 4;
           } else {
-            this.price = price.toFixed(2);
             this.width = this.getWidth();
           }
+          this.price = price.toFixed(2);
         });
       },
       methods: {
@@ -146,12 +141,6 @@
           if (this.listening) speech.init();
           else speech.stopListening();
         },
-        // joinMeeting() {
-        //   meeting.join({ name: this.name, salary: this.salary });
-        //   this.name = "";
-        //   this.salary = null;
-        //   this.joined = true;
-        // },
         getWidth() {
           if (this.meeting && this.meeting.startedAt) {
             const { startedAt } = this.meeting;

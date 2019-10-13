@@ -58,12 +58,6 @@ app.get('/persons', (req, res) => {
   res.send(currentMeeting.persons)
 });
 
-// app.post("/meeting/join", (req, res) => {
-//   const person = currentMeeting.persons.find(person => person.id === req.body.id)
-//   io.emit("meeting:person-joined", person);
-//   res.status(200).end();
-// });
-
 app.post("/meeting/start", (req, res) => {
   currentMeeting.start();
   io.emit("meeting:started", currentMeeting.startedAt);
@@ -74,10 +68,6 @@ app.post("/meeting/start", (req, res) => {
       remaining: currentMeeting.getRemainingTime(),
       price: currentMeeting.getTotalPrice(),
     });
-    if (currentMeeting.getRemainingTime().floatMin <= 0) {
-      Rocket.launchRocket(req, res);
-      clearInterval(broadcasting);
-    }
   }, 1000);
   res.status(200).end();
 });
@@ -88,9 +78,5 @@ app.post("/bs", (req, res) => {
 });
 
 app.post("/fire", Rocket.launchRocket);
-
-// io.on("connection", socket => {
-//   socket.emit("meeting", currentMeeting);
-// });
 
 http.listen(process.env.PORT || 3000);

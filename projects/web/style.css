@@ -3,6 +3,7 @@ body {
   background-image: url("./images/wallpaper.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  background-color: #FAFAFA;
   font-family: Helvetica, Arial, sans-serif;
   color: #031535;
   font-weight: 300;
@@ -45,6 +46,14 @@ body {
 
 .value {
   color: #FF0050;
+}
+
+.errorLabel {
+  color: #C91831;
+}
+
+.errorBackground {
+  background-color: #C91831;
 }
 
 .disabled {
@@ -144,18 +153,6 @@ li {
   box-shadow: 0 2px 19px 0 rgba(202,202,202,0.50);
 }
 
-/* .step1 {
-  height: 270px;
-}
-
-.step2 {
-  height: 450px;
-}
-
-.step3 {
-  height: 350px;
-} */
-
 .bullshit_controller {
   display: flex;
   align-items: center;
@@ -250,4 +247,21 @@ input:checked + .slider:before {
 button:disabled {
   cursor: not-allowed;
   background: rgba(255, 0, 81, 0.644);
+}
+
+.lottie_container {
+  position: absolute;
+  top: 500px;
+  right: 20px;
+  width: 300px;
+  height: 230px;
+  background: white;
+  border-radius: 20px;
+  padding: 16px 28px;
+  transition: all ease-in .3s;
+  box-shadow: 0 59px 98px 0 rgba(61,61,61,0.50);
+}
+
+.position-left {
+  left: 20px;
 }
