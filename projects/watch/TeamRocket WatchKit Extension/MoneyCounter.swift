@@ -23,7 +23,6 @@ class MoneyCounter: ObservableObject {
 
     @objc private func callAPI() {
         AF.request("\(apiUrl)/watch/state").responseJSON { response in
-            print(response)
             guard let data = response.data, let state = try? JSONDecoder().decode(WatchState.self, from: data) else {
                 print("Error: Couldn't decode data into matches")
                 return
