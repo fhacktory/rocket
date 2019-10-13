@@ -46,6 +46,7 @@ class Meeting {
     const endDate = startDate + (this.duration / 1000)
     const remaining = (endDate - now) / 60
     return {
+      floatMin: remaining, 
       minutes: (''+remaining).split('.')[0],
       seconds: (''+(+(''+remaining).split('.')[1].substr(0,2) * 60 / 100)).split('.')[0]
     }
