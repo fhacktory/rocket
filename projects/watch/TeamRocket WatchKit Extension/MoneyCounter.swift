@@ -13,6 +13,7 @@ import Alamofire
 class MoneyCounter: ObservableObject {
     @Published var money: Double = 0.0
     @Published var moneyDescription: String = "0"
+    @Published var state: WatchState? = nil
 
     let apiUrl : URL = URL(string: "http://127.0.0.1:3000")!
 
@@ -21,14 +22,16 @@ class MoneyCounter: ObservableObject {
     }
 
     @objc private func callAPI() {
-        AF.request("\(apiUrl)/costs").responseJSON { response in
-            guard let data = response.data, let costs = try? JSONDecoder().decode(Costs.self, from: data) else {
+        AF.request("\(apiUrl)/watch/state").responseJSON { response in
+            print(response)
+            guard let data = response.data, let state = try? JSONDecoder().decode(WatchState.self, from: data) else {
                 print("Error: Couldn't decode data into matches")
                 return
             }
 
-            self.money = Double(costs.total) ?? 0.0
-            self.moneyDescription = costs.total
+            self.state = state
+            self.money = Double(state.totalCost) ?? 0.0
+            self.moneyDescription = state.totalCost
         }
     }
 
@@ -39,12 +42,14 @@ class MoneyCounter: ObservableObject {
     }
 }
 
-struct Costs: Codable {
-    let total: String
-    let costPerPerson: [CostPerPerson]
+struct WatchState: Codable {
+    let totalCost: String
+    let persons: [Person]
+    let bullshitCounter: Int
 }
 
-struct CostPerPerson: Codable {
+struct Person: Codable, Identifiable {
+    let id: Int
     let name: String
     let totalCost: String
 }

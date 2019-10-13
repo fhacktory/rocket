@@ -14,12 +14,19 @@ struct ContentView: View {
     @State var timerStarted: Bool = false
 
     var body: some View {
+//        List {
+//            NavigationLink(destination: ParticipantsList().environmentObject(moneyCounter)) {
+//                Text("tst")
+//            }
+//        }
         VStack {
-            Text("Meeting Cost").font(.system(size:30))
+            NavigationLink(destination: ParticipantsList().environmentObject(moneyCounter)) {
+                Image(systemName: "person.2.fill").imageScale(.large)
+            }
             HStack {
-                Text("\(moneyCounter.moneyDescription) €").bold().font(.system(size: 25))
+                Text("5:20").bold().font(.system(size: 16))
                 Spacer()
-                Text("💸").font(.system(size:30))
+                Text("\(moneyCounter.moneyDescription) €").bold().font(.system(size: 25))
             }.padding()
             if !timerStarted {
                 Button(action: {
@@ -33,16 +40,16 @@ struct ContentView: View {
                     }.padding()
                 })
             }
-            if moneyCounter.money > 3.0 {
+            if moneyCounter.money > 300000.0 {
                 Button(action: {
                     self.moneyCounter.launchRocket()
                     print("Fired !")
                 }, label: {
-                    Text("Fire someone 💥")
-                    .font(.system(size: 50))
+                    Text("Fire 🚀")
+                    .font(.system(size: 30))
                 })
             }
-        }
+        }.navigationBarTitle(Text("Réunion"))
     }
 }
 

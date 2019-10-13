@@ -25,6 +25,8 @@
 		D5C5DE3A23520A1400B6F24D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C5DE3923520A1400B6F24D /* Starscream.framework */; };
 		D5C5DE5F23520FA700B6F24D /* Starscream.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D5C5DE3923520A1400B6F24D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5C5DE6123520FC900B6F24D /* Starscream.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D5C5DE3923520A1400B6F24D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5D58047235321C000F5E2A1 /* ParticipantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D58046235321C000F5E2A1 /* ParticipantsController.swift */; };
+		D5D58049235321EB00F5E2A1 /* ParticipantsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D58048235321EB00F5E2A1 /* ParticipantsList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +115,8 @@
 		D5C5DE32235202FA00B6F24D /* MoneyCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCounter.swift; sourceTree = "<group>"; };
 		D5C5DE372352049C00B6F24D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.0.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		D5C5DE3923520A1400B6F24D /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/watchOS/Starscream.framework; sourceTree = "<group>"; };
+		D5D58046235321C000F5E2A1 /* ParticipantsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsController.swift; sourceTree = "<group>"; };
+		D5D58048235321EB00F5E2A1 /* ParticipantsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,8 @@
 				D5C5DE142351E71900B6F24D /* ContentView.swift */,
 				D5662BE02352483900B6AD54 /* Double+Extension.swift */,
 				D5C5DE162351E71900B6F24D /* HostingController.swift */,
+				D5D58046235321C000F5E2A1 /* ParticipantsController.swift */,
+				D5D58048235321EB00F5E2A1 /* ParticipantsList.swift */,
 				D5C5DE182351E71900B6F24D /* ExtensionDelegate.swift */,
 				D5C5DE1A2351E71900B6F24D /* NotificationController.swift */,
 				D5C5DE1C2351E71900B6F24D /* NotificationView.swift */,
@@ -326,9 +332,11 @@
 			files = (
 				D5C5DE172351E71900B6F24D /* HostingController.swift in Sources */,
 				D5C5DE152351E71900B6F24D /* ContentView.swift in Sources */,
+				D5D58049235321EB00F5E2A1 /* ParticipantsList.swift in Sources */,
 				D5662BE12352483900B6AD54 /* Double+Extension.swift in Sources */,
 				D5C5DE1B2351E71900B6F24D /* NotificationController.swift in Sources */,
 				D5C5DE192351E71900B6F24D /* ExtensionDelegate.swift in Sources */,
+				D5D58047235321C000F5E2A1 /* ParticipantsController.swift in Sources */,
 				D5C5DE1D2351E71900B6F24D /* NotificationView.swift in Sources */,
 				D5C5DE33235202FA00B6F24D /* MoneyCounter.swift in Sources */,
 			);

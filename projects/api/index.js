@@ -23,16 +23,17 @@ app.get("/", (req, res) => {
   res.sendFile(FRONT_PATH + "/index.html");
 });
 
-app.get("/costs", (req, res) => {
-  costs = {
-    total: currentMeeting.getTotalPrice().toFixed(0),
-    costPerPerson: currentMeeting.persons.map(person => ({
+app.get("/watch/state", (req, res) => {
+  const watchState = {
+    totalCost: currentMeeting.getTotalPrice().toFixed(2),
+    persons: currentMeeting.persons.map(person => ({
+      id: person.id,
       name: person.name,
-      totalCost: person.getPrice(currentMeeting).toFixed(0),
+      totalCost: person.getPrice(currentMeeting).toFixed(2),
     })),
     bullshitCounter: currentMeeting.bsCounter,
   };
-  res.send(costs);
+  res.send(watchState);
 });
 
 /**
