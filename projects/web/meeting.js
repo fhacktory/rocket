@@ -4,6 +4,9 @@ export default {
       duration,
     });
   },
+  getPersons() {
+    return axios.get('/persons').then(response => response.data)
+  },
   join({name, salary}) {
     axios
       .post("/meeting/join", {

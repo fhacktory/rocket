@@ -2,6 +2,7 @@ body {
   width: 100vw;
   background-image: url("./images/wallpaper.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   font-family: Helvetica, Arial, sans-serif;
   color: #031535;
   font-weight: 300;
@@ -174,9 +175,10 @@ li {
 
 .gauge {
   background: #FF0050;
-  width: 80%;
   height: 100%;
   border-radius: 10px;
+  min-width: 20px;
+  max-width: 100%;
 }
 
 .switch {

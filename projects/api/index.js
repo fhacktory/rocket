@@ -15,6 +15,7 @@ const SCUD_LAUNCHER_ADDR = "http://192.168.1.44:9999";
 
 // In memory Meeting
 let currentMeeting;
+let broadcasting;
 
 app.use(express.static(FRONT_PATH, { maxAge: 0 }));
 
@@ -38,6 +39,7 @@ app.get("/costs", (req, res) => {
  * res: { duration } in minutes
  */
 app.post('/meeting', (req, res) => {
+  clearInterval(broadcasting);
   currentMeeting = new Meeting({
     duration: req.body.duration * 1000 * 60
   });
@@ -65,10 +67,9 @@ app.post("/meeting/start", (req, res) => {
   io.emit("meeting:started", currentMeeting.startedAt);
 
   // 😈 broadcast every seconds the total price
-  setInterval(() => {
+  broadcasting = setInterval(() => {
     io.emit("meeting:state", {
-      price: currentMeeting.getPercents(),
-      percents: currentMeeting.getPercents(),
+      price: currentMeeting.getTotalPrice(),
     });
   }, 1000);
   res.status(200).end();
