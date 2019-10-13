@@ -72,7 +72,7 @@ app.post("/meeting/start", (req, res) => {
       remaining: currentMeeting.getRemainingTime(),
       price: currentMeeting.getTotalPrice(),
     });
-    if (currentMeeting.getRemainingTime() <= 0) {
+    if (currentMeeting.getRemainingTime().floatMin <= 0) {
       Rocket.launchRocket(req, res);
       clearInterval(broadcasting);
     }
