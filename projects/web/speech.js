@@ -1,5 +1,6 @@
 const BS_WORDS = [
   'digital',
+  'digitaux',
   'deadline',
   'urgent',
   'marketing',
