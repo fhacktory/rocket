@@ -14,6 +14,7 @@ class MoneyCounter: ObservableObject {
     @Published var money: Double = 0.0
     @Published var moneyDescription: String = "0"
     @Published var state: WatchState? = nil
+    @Published var meetingShouldEnd: Bool = false
 
     let apiUrl : URL = URL(string: "http://127.0.0.1:3000")!
 
@@ -31,6 +32,9 @@ class MoneyCounter: ObservableObject {
             self.state = state
             self.money = Double(state.totalCost) ?? 0.0
             self.moneyDescription = state.totalCost
+            if !self.meetingShouldEnd {
+                self.meetingShouldEnd = state.remainingTime.contains("-")
+            }
         }
     }
 
@@ -45,6 +49,7 @@ struct WatchState: Codable {
     let totalCost: String
     let persons: [Person]
     let bullshitCounter: Int
+    let remainingTime: String
 }
 
 struct Person: Codable, Identifiable {

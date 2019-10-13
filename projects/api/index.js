@@ -23,7 +23,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/watch/state", (req, res) => {
+  const remaining = currentMeeting.getRemainingTime()
   const watchState = {
+    remainingTime: remaining.minutes + ':' + remaining.seconds,
     totalCost: currentMeeting.getTotalPrice().toFixed(2),
     persons: currentMeeting.persons.map(person => ({
       id: person.id,

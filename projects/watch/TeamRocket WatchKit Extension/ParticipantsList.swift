@@ -14,7 +14,7 @@ struct ParticipantsList: View {
 
     var body: some View {
         List(moneyCounter.state!.persons) { person in
-            Text("\(person.name) : \(person.totalCost)")
+            Text("\(person.name) : \(person.totalCost) €").bold().font(.system(size:20))
         }
     }
 }

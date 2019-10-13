@@ -14,17 +14,12 @@ struct ContentView: View {
     @State var timerStarted: Bool = false
 
     var body: some View {
-//        List {
-//            NavigationLink(destination: ParticipantsList().environmentObject(moneyCounter)) {
-//                Text("tst")
-//            }
-//        }
         VStack {
             NavigationLink(destination: ParticipantsList().environmentObject(moneyCounter)) {
                 Image(systemName: "person.2.fill").imageScale(.large)
             }
             HStack {
-                Text("5:20").bold().font(.system(size: 16))
+                Text("\(moneyCounter.state?.remainingTime ?? "-") 🕔").bold().font(.system(size: 16))
                 Spacer()
                 Text("\(moneyCounter.moneyDescription) €").bold().font(.system(size: 25))
             }.padding()
@@ -40,7 +35,7 @@ struct ContentView: View {
                     }.padding()
                 })
             }
-            if moneyCounter.money > 300000.0 {
+            if moneyCounter.state?.remainingTime == "0:0" || moneyCounter.meetingShouldEnd {
                 Button(action: {
                     self.moneyCounter.launchRocket()
                     print("Fired !")
