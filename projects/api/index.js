@@ -69,8 +69,10 @@ app.post("/meeting/start", (req, res) => {
   // 😈 broadcast every seconds the total price
   broadcasting = setInterval(() => {
     io.emit("meeting:state", {
+      remaining: currentMeeting.getRemainingTime(),
       price: currentMeeting.getTotalPrice(),
     });
+    if (currentMeeting.getRemainingTime() <= 0) clearInterval(broadcasting);
   }, 1000);
   res.status(200).end();
 });

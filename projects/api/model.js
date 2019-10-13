@@ -39,6 +39,13 @@ class Meeting {
   getTotalPrice() {
     return this.persons.reduce((acc, person) => person.getPrice(this) + acc, 0);
   }
+
+  getRemainingTime() {
+    const startDate = new Date(this.startedAt).getTime() / 1000
+    const now = new Date().getTime() / 1000
+    const endDate = startDate + (this.duration / 1000)
+    return (endDate - now) / 60
+  }
 }
 
 module.exports = {

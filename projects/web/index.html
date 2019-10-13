@@ -33,7 +33,7 @@
       <button @click="start()">Commencer la réunion(
         <strong>{{ duration }}</strong>min)</button>
     </div>
-    <div class="card step3" :class="{ future: step < 3 }">
+    <div class="card step3" :class="{ past: step > 3, future: step < 3 }">
       <h1>La réunion est en cours !</h1>
       <div class="gauge_container">
         <div class="gauge" v-bind:style="{ width: width + '%' }"></div>
@@ -56,6 +56,20 @@
         <span class="label value" :class="{ disabled: !listening }">{{ listening ? 'activé' : 'désactivé' }}</span>
       </div>
     </div>
+    <div class="card step4" :class="{ future: step < 4 }">
+      <h1>La réunion est terminée !</h1>
+      <div class="gauge_container">
+        <div class="gauge" v-bind:style="{ width: '100%' }"></div>
+      </div>
+      <div class="space_between_container">
+        <div></div>
+        <div class="label">Coût de la réunion :</div>
+      </div>
+      <div class="space_between_container">
+        <div></div>
+        <div class="emphasized value">{{ price }} €</div>
+      </div>
+    </div>
   </div>
 
   <script type="module">
@@ -70,6 +84,7 @@
         listening: false,
         step: 1,
         duration: null,
+        remaining: 0,
         persons: [],
         width: 0,
         price: 0,
@@ -101,27 +116,25 @@
         socket.on("meeting:started", startedAt => {
           this.meeting = { ...this.meeting, startedAt };
         });
-        socket.on("meeting:state", ({price}) => {
-          this.price = price.toFixed(2);
-          this.width = this.getWidth();
+        socket.on("meeting:state", ({ price, remaining }) => {
+          this.remaining = remaining;
+          if (remaining <= 0) {
+            this.step = 4;
+          } else {
+            this.price = price.toFixed(2);
+            this.width = this.getWidth();
+          }
         });
       },
       computed: {
-        remaining() {
-          if (!this.meeting) return 0;
-          const startDate = new Date(this.meeting.startedAt).getTime() / 1000
-          const now = this.now.getTime() / 1000
-          const endDate = startDate + this.duration * 60
-          return (endDate - now) / 60
-        },
         remainingMin() {
           if (!this.remaining) return 0;
-          return (''+this.remaining).split('.')[0]
+          return ('' + this.remaining).split('.')[0]
         },
         remainingSec() {
           if (!this.remaining) return 0;
-          const minPercent = (''+this.remaining).split('.')[1].substr(0, 2)
-          return (''+(+minPercent * 60 / 100)).split('.')[0]
+          const minPercent = ('' + this.remaining).split('.')[1].substr(0, 2)
+          return ('' + (+minPercent * 60 / 100)).split('.')[0]
         }
       },
       methods: {
@@ -153,7 +166,7 @@
             const { startedAt } = this.meeting;
             const elapsed =
               new Date().getTime() - new Date(startedAt).getTime();
-            return (100 * elapsed) / (this.duration*60000);
+            return (100 * elapsed) / (this.duration * 60000);
           }
 
           return 0;
