@@ -5,6 +5,7 @@ const BS_WORDS = [
   'urgent',
   'marketing',
   'business',
+  'croissance',
 ]
 
 window.SpeechRecognition = window.SpeechRecognition ||
