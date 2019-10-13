@@ -30,11 +30,10 @@
       <h2>Participants :</h2>
       <ul class="persons">
         <li v-for="person in persons" class="badge">
-          <img src="/images/person.png">
-          {{ person.name }}
+          <img src="/images/person.png"> {{ person.name }}
         </li>
       </ul>
-      <button @click="start()">Commencer la réunion 
+      <button @click="start()">Commencer la réunion
         <strong>({{ duration }}min)</strong>
       </button>
     </div>
@@ -74,9 +73,11 @@
         <div></div>
         <div class="emphasized value">{{ price }} €</div>
       </div>
-      <lottie-player src="https://assets4.lottiefiles.com/temp/lf20_Dyby8d.json" background="transparent" speed="1" style="width: 100%; height: auto;"
-        loop autoplay>
-      </lottie-player>
+      <a :href="'https://www.paypal.me/adrienredon/' + price">
+        <lottie-player src="https://assets4.lottiefiles.com/temp/lf20_Dyby8d.json" background="transparent" speed="1" style="width: 100%; height: auto;"
+          loop autoplay>
+        </lottie-player>
+      </a>
     </div>
   </div>
 
