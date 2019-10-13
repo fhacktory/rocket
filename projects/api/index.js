@@ -1,9 +1,9 @@
 const express = require("express");
 const app = require("express")();
 const bodyParser = require("body-parser");
-const request = require("request");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+const Rocket = require('./rocket');
 
 const { Person, Meeting } = require("./model");
 
@@ -11,7 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const FRONT_PATH = __dirname + "/../web";
-const SCUD_LAUNCHER_ADDR = "http://192.168.1.44:9999";
 
 // In memory Meeting
 let currentMeeting;
@@ -67,35 +66,26 @@ app.post("/meeting/start", (req, res) => {
   currentMeeting.start();
   io.emit("meeting:started", currentMeeting.startedAt);
 
-  // 😈 broadcast every seconds the total price
+  // broadcast every seconds 😈
   broadcasting = setInterval(() => {
     io.emit("meeting:state", {
       remaining: currentMeeting.getRemainingTime(),
       price: currentMeeting.getTotalPrice(),
     });
-    if (currentMeeting.getRemainingTime() <= 0) clearInterval(broadcasting);
+    if (currentMeeting.getRemainingTime() <= 0) {
+      Rocket.launchRocket(req, res);
+      clearInterval(broadcasting);
+    }
   }, 1000);
   res.status(200).end();
 });
 
 app.post("/bs", (req, res) => {
   currentMeeting.incrementBsCounter();
-  request
-    .get(SCUD_LAUNCHER_ADDR + "/fire?length=1")
-    .on("response", () => {
-      res.status(200).end();
-    })
-    .on("error", () => res.status(500).end());
+  Rocket.launchRocket(req, res);
 });
 
-app.post("/fire", (req, res) => {
-  request
-    .get(SCUD_LAUNCHER_ADDR + "/fire?length=1")
-    .on("response", () => {
-      res.status(200).end();
-    })
-    .on("error", () => res.status(500).end());
-});
+app.post("/fire", Rocket.launchRocket);
 
 // io.on("connection", socket => {
 //   socket.emit("meeting", currentMeeting);

@@ -144,7 +144,7 @@ li {
   box-shadow: 0 2px 19px 0 rgba(202,202,202,0.50);
 }
 
-.step1 {
+/* .step1 {
   height: 270px;
 }
 
@@ -154,7 +154,7 @@ li {
 
 .step3 {
   height: 350px;
-}
+} */
 
 .bullshit_controller {
   display: flex;
@@ -228,4 +228,26 @@ input:focus + .slider {
 
 input:checked + .slider:before {
   transform: translateX(20px);
+}
+
+.persons {
+  margin: 16px 0;
+  display: flex;
+}
+
+.persons li {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.persons img {
+  display: inline-block;
+  width: 24px;
+  margin-right: 4px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background: rgba(255, 0, 81, 0.644);
 }

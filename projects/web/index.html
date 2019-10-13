@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <title>Rocket</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,8 +17,10 @@
     <div class="card step1" :class="{ past: step > 1 }">
       <h1>Créer une réunion</h1>
       <h2>De quelle durée sera la réunion ?</h2>
-      <input v-model="duration" type="text" placeholder="Durée en minute">
-      <button @click="createMeeting()">Créer la réunion</button>
+      <input v-model="duration" type="number" placeholder="Durée en minute, ex: 30">
+      <button @click="createMeeting()" :disabled="!(duration && duration > 0)">
+        Créer la réunion
+      </button>
     </div>
     <div class="card step2" :class="{ past: step > 2, future: step < 2 }">
       <h1>La réunion a été créée !</h1>
@@ -25,13 +28,15 @@
         <a>rocketmeeting.com/room/a43D9</a>
       </p>
       <h2>Participants :</h2>
-      <ul>
+      <ul class="persons">
         <li v-for="person in persons" class="badge">
+          <img src="/images/person.png">
           {{ person.name }}
         </li>
       </ul>
-      <button @click="start()">Commencer la réunion(
-        <strong>{{ duration }}</strong>min)</button>
+      <button @click="start()">Commencer la réunion 
+        <strong>({{ duration }}min)</strong>
+      </button>
     </div>
     <div class="card step3" :class="{ past: step > 3, future: step < 3 }">
       <h1>La réunion est en cours !</h1>
@@ -43,7 +48,7 @@
         <div class="label">Coût de la réunion :</div>
       </div>
       <div class="space_between_container">
-        <div class="label value">{{ remainingMin }} min {{ remainingSec }}</div>
+        <div class="label value">{{ remaining.minutes }} min {{ remaining.seconds }}</div>
         <div class="emphasized value">{{ price }} €</div>
       </div>
       <div class="divider"></div>
@@ -69,6 +74,9 @@
         <div></div>
         <div class="emphasized value">{{ price }} €</div>
       </div>
+      <lottie-player src="https://assets4.lottiefiles.com/temp/lf20_Dyby8d.json" background="transparent" speed="1" style="width: 100%; height: auto;"
+        loop autoplay>
+      </lottie-player>
     </div>
   </div>
 
@@ -80,7 +88,6 @@
     const app = new Vue({
       el: "#app",
       data: {
-        now: new Date(),
         listening: false,
         step: 1,
         duration: null,
@@ -95,12 +102,6 @@
         // salary: null,
       },
       created() {
-
-        // 💩 : in order to compute from now date
-        setInterval(() => {
-          this.now = new Date()
-        }, 1000)
-
 
         const socket = io();
         // socket.on("meeting", meeting => {
@@ -125,17 +126,6 @@
             this.width = this.getWidth();
           }
         });
-      },
-      computed: {
-        remainingMin() {
-          if (!this.remaining) return 0;
-          return ('' + this.remaining).split('.')[0]
-        },
-        remainingSec() {
-          if (!this.remaining) return 0;
-          const minPercent = ('' + this.remaining).split('.')[1].substr(0, 2)
-          return ('' + (+minPercent * 60 / 100)).split('.')[0]
-        }
       },
       methods: {
         createMeeting() {
