@@ -119,7 +119,7 @@
         });
         socket.on("meeting:state", ({ price, remaining }) => {
           this.remaining = remaining;
-          if (remaining <= 0) {
+          if (remaining.floatMin <= 0) {
             this.step = 4;
           } else {
             this.price = price.toFixed(2);
