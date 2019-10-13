@@ -48,7 +48,7 @@
         <div class="label">Coût de la réunion :</div>
       </div>
       <div class="space_between_container">
-        <div class="label value">{{ remainingMin }} min {{ remainingSec }}</div>
+        <div class="label value">{{ remaining.minutes }} min {{ remaining.seconds }}</div>
         <div class="emphasized value">{{ price }} €</div>
       </div>
       <div class="divider"></div>
@@ -88,7 +88,6 @@
     const app = new Vue({
       el: "#app",
       data: {
-        now: new Date(),
         listening: false,
         step: 1,
         duration: null,
@@ -103,12 +102,6 @@
         // salary: null,
       },
       created() {
-
-        // 💩 : in order to compute from now date
-        setInterval(() => {
-          this.now = new Date()
-        }, 1000)
-
 
         const socket = io();
         // socket.on("meeting", meeting => {
@@ -133,17 +126,6 @@
             this.width = this.getWidth();
           }
         });
-      },
-      computed: {
-        remainingMin() {
-          if (!this.remaining) return 0;
-          return ('' + this.remaining).split('.')[0]
-        },
-        remainingSec() {
-          if (!this.remaining) return 0;
-          const minPercent = ('' + this.remaining).split('.')[1].substr(0, 2)
-          return ('' + (+minPercent * 60 / 100)).split('.')[0]
-        }
       },
       methods: {
         createMeeting() {

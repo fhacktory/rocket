@@ -44,7 +44,11 @@ class Meeting {
     const startDate = new Date(this.startedAt).getTime() / 1000
     const now = new Date().getTime() / 1000
     const endDate = startDate + (this.duration / 1000)
-    return (endDate - now) / 60
+    const remaining = (endDate - now) / 60
+    return {
+      minutes: (''+remaining).split('.')[0],
+      seconds: (''+(+(''+remaining).split('.')[1].substr(0,2) * 60 / 100)).split('.')[0]
+    }
   }
 }
 
