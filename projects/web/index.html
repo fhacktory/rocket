@@ -16,8 +16,10 @@
     <div class="card step1" :class="{ past: step > 1 }">
       <h1>Créer une réunion</h1>
       <h2>De quelle durée sera la réunion ?</h2>
-      <input v-model="duration" type="text" placeholder="Durée en minute">
-      <button @click="createMeeting()">Créer la réunion</button>
+      <input v-model="duration" type="number" placeholder="Durée en minute, ex: 30">
+      <button @click="createMeeting()" :disabled="!(duration && duration > 0)">
+        Créer la réunion
+      </button>
     </div>
     <div class="card step2" :class="{ past: step > 2, future: step < 2 }">
       <h1>La réunion a été créée !</h1>
@@ -25,13 +27,15 @@
         <a>rocketmeeting.com/room/a43D9</a>
       </p>
       <h2>Participants :</h2>
-      <ul>
+      <ul class="persons">
         <li v-for="person in persons" class="badge">
+          <img src="/images/person.png">
           {{ person.name }}
         </li>
       </ul>
-      <button @click="start()">Commencer la réunion(
-        <strong>{{ duration }}</strong>min)</button>
+      <button @click="start()">Commencer la réunion 
+        <strong>({{ duration }}min)</strong>
+      </button>
     </div>
     <div class="card step3" :class="{ past: step > 3, future: step < 3 }">
       <h1>La réunion est en cours !</h1>

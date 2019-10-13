@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/costs", (req, res) => {
-  costs = {
+  const costs = {
     total: currentMeeting.getTotalPrice().toFixed(0),
     costPerPerson: currentMeeting.persons.map(person => ({
       name: person.name,
@@ -66,7 +66,7 @@ app.post("/meeting/start", (req, res) => {
   currentMeeting.start();
   io.emit("meeting:started", currentMeeting.startedAt);
 
-  // 😈 broadcast every seconds the total price
+  // broadcast every seconds 😈
   broadcasting = setInterval(() => {
     io.emit("meeting:state", {
       remaining: currentMeeting.getRemainingTime(),
