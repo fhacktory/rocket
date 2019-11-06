@@ -7,25 +7,24 @@
 //
 
 import SwiftUI
-import Starscream
 
 struct ContentView: View {
-    @EnvironmentObject var moneyCounter: MoneyCounter
+    @EnvironmentObject var viewModel: ViewModel
     @State var timerStarted: Bool = false
 
     var body: some View {
         VStack {
-            NavigationLink(destination: ParticipantsList().environmentObject(moneyCounter)) {
+            NavigationLink(destination: ParticipantsList().environmentObject(viewModel)) {
                 Image(systemName: "person.2.fill").imageScale(.large)
             }
             HStack {
-                Text("\(moneyCounter.state?.remainingTime ?? "-") 🕔").bold().font(.system(size: 16))
+                Text("\(viewModel.meetingState?.remainingTime ?? "-") 🕔").bold().font(.system(size: 16))
                 Spacer()
-                Text("\(moneyCounter.moneyDescription) €").bold().font(.system(size: 25))
+                Text("\(viewModel.moneyDescription) €").bold().font(.system(size: 25))
             }.padding()
             if !timerStarted {
                 Button(action: {
-                    self.moneyCounter.startTimer()
+                    self.viewModel.startTimer()
                     self.timerStarted = true
                 }, label: {
                     HStack {
@@ -35,9 +34,9 @@ struct ContentView: View {
                     }.padding()
                 })
             }
-            if moneyCounter.state?.remainingTime == "0:0" || moneyCounter.meetingShouldEnd {
+            if viewModel.meetingState?.remainingTime == "0:0" || viewModel.meetingShouldEnd {
                 Button(action: {
-                    self.moneyCounter.launchRocket()
+                    self.viewModel.launchRocket()
                     print("Fired !")
                 }, label: {
                     Text("Fire 🚀")
@@ -50,6 +49,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(MoneyCounter())
+        ContentView().environmentObject(ViewModel())
     }
 }

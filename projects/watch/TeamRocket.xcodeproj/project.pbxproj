@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D50071102361E72B00A5D7C1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = D500710F2361E72B00A5D7C1 /* Person.swift */; };
 		D5662BDE2352309800B6AD54 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5662BDD2352309800B6AD54 /* Alamofire.framework */; };
 		D5662BDF235230A000B6AD54 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D5662BDD2352309800B6AD54 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D5662BE12352483900B6AD54 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5662BE02352483900B6AD54 /* Double+Extension.swift */; };
 		D5C5DE012351E71800B6F24D /* TeamRocket WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D5C5DE002351E71800B6F24D /* TeamRocket WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D5C5DE072351E71800B6F24D /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5C5DE052351E71800B6F24D /* Interface.storyboard */; };
 		D5C5DE092351E71900B6F24D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5C5DE082351E71900B6F24D /* Assets.xcassets */; };
@@ -21,11 +21,7 @@
 		D5C5DE1D2351E71900B6F24D /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5DE1C2351E71900B6F24D /* NotificationView.swift */; };
 		D5C5DE1F2351E71A00B6F24D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5C5DE1E2351E71A00B6F24D /* Assets.xcassets */; };
 		D5C5DE222351E71A00B6F24D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5C5DE212351E71A00B6F24D /* Preview Assets.xcassets */; };
-		D5C5DE33235202FA00B6F24D /* MoneyCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5DE32235202FA00B6F24D /* MoneyCounter.swift */; };
-		D5C5DE3A23520A1400B6F24D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C5DE3923520A1400B6F24D /* Starscream.framework */; };
-		D5C5DE5F23520FA700B6F24D /* Starscream.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D5C5DE3923520A1400B6F24D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D5C5DE6123520FC900B6F24D /* Starscream.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D5C5DE3923520A1400B6F24D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D5D58047235321C000F5E2A1 /* ParticipantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D58046235321C000F5E2A1 /* ParticipantsController.swift */; };
+		D5C5DE33235202FA00B6F24D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5DE32235202FA00B6F24D /* ViewModel.swift */; };
 		D5D58049235321EB00F5E2A1 /* ParticipantsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D58048235321EB00F5E2A1 /* ParticipantsList.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,7 +71,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D5C5DE5F23520FA700B6F24D /* Starscream.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,7 +82,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D5662BDF235230A000B6AD54 /* Alamofire.framework in Copy Frameworks */,
-				D5C5DE6123520FC900B6F24D /* Starscream.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,8 +89,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D500710F2361E72B00A5D7C1 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		D5662BDD2352309800B6AD54 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/watchOS/Alamofire.framework; sourceTree = "<group>"; };
-		D5662BE02352483900B6AD54 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		D5C5DDFC2351E71800B6F24D /* TeamRocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamRocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5C5DE002351E71800B6F24D /* TeamRocket WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TeamRocket WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5C5DE062351E71800B6F24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -112,10 +106,8 @@
 		D5C5DE212351E71A00B6F24D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D5C5DE232351E71A00B6F24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5C5DE242351E71A00B6F24D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		D5C5DE32235202FA00B6F24D /* MoneyCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCounter.swift; sourceTree = "<group>"; };
+		D5C5DE32235202FA00B6F24D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		D5C5DE372352049C00B6F24D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.0.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
-		D5C5DE3923520A1400B6F24D /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/watchOS/Starscream.framework; sourceTree = "<group>"; };
-		D5D58046235321C000F5E2A1 /* ParticipantsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsController.swift; sourceTree = "<group>"; };
 		D5D58048235321EB00F5E2A1 /* ParticipantsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,7 +117,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5662BDE2352309800B6AD54 /* Alamofire.framework in Frameworks */,
-				D5C5DE3A23520A1400B6F24D /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,10 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				D5C5DE142351E71900B6F24D /* ContentView.swift */,
-				D5662BE02352483900B6AD54 /* Double+Extension.swift */,
 				D5C5DE162351E71900B6F24D /* HostingController.swift */,
-				D5D58046235321C000F5E2A1 /* ParticipantsController.swift */,
-				D5D58048235321EB00F5E2A1 /* ParticipantsList.swift */,
 				D5C5DE182351E71900B6F24D /* ExtensionDelegate.swift */,
 				D5C5DE1A2351E71900B6F24D /* NotificationController.swift */,
 				D5C5DE1C2351E71900B6F24D /* NotificationView.swift */,
@@ -177,7 +165,9 @@
 				D5C5DE232351E71A00B6F24D /* Info.plist */,
 				D5C5DE242351E71A00B6F24D /* PushNotificationPayload.apns */,
 				D5C5DE202351E71A00B6F24D /* Preview Content */,
-				D5C5DE32235202FA00B6F24D /* MoneyCounter.swift */,
+				D5C5DE32235202FA00B6F24D /* ViewModel.swift */,
+				D5D58048235321EB00F5E2A1 /* ParticipantsList.swift */,
+				D500710F2361E72B00A5D7C1 /* Person.swift */,
 			);
 			path = "TeamRocket WatchKit Extension";
 			sourceTree = "<group>";
@@ -194,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				D5662BDD2352309800B6AD54 /* Alamofire.framework */,
-				D5C5DE3923520A1400B6F24D /* Starscream.framework */,
 				D5C5DE372352049C00B6F24D /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -330,15 +319,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50071102361E72B00A5D7C1 /* Person.swift in Sources */,
 				D5C5DE172351E71900B6F24D /* HostingController.swift in Sources */,
 				D5C5DE152351E71900B6F24D /* ContentView.swift in Sources */,
 				D5D58049235321EB00F5E2A1 /* ParticipantsList.swift in Sources */,
-				D5662BE12352483900B6AD54 /* Double+Extension.swift in Sources */,
 				D5C5DE1B2351E71900B6F24D /* NotificationController.swift in Sources */,
 				D5C5DE192351E71900B6F24D /* ExtensionDelegate.swift in Sources */,
-				D5D58047235321C000F5E2A1 /* ParticipantsController.swift in Sources */,
 				D5C5DE1D2351E71900B6F24D /* NotificationView.swift in Sources */,
-				D5C5DE33235202FA00B6F24D /* MoneyCounter.swift in Sources */,
+				D5C5DE33235202FA00B6F24D /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

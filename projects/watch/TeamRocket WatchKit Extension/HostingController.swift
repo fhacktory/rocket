@@ -13,7 +13,7 @@ import SwiftUI
 class HostingController: WKHostingController<AnyView> {
 
     override var body: AnyView {
-        let moneyCounter = MoneyCounter()
-        return AnyView(ContentView().environmentObject(moneyCounter))
+        let viewModel = ViewModel()
+        return AnyView(ContentView().environmentObject(viewModel))
     }
 }

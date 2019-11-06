@@ -46,9 +46,23 @@ app.post('/meeting', (req, res) => {
     duration: req.body.duration * 1000 * 60
   });
   const persons = [
-    new Person({ id: 1, name: 'Nicolas', salary: 60000 }),
-    new Person({ id: 2, name: 'Adrien', salary: 88000 }),
-    new Person({ id: 3, name: 'Edouard', salary: 70000 }),
+    new Person({ id: 1, name: 'Aglaé Bernard', salary: 40000 }),
+    new Person({ id: 2, name: 'Anthony Roani', salary: 40000 }),
+    new Person({ id: 3, name: 'Benoit Caron', salary: 40000 }),
+    new Person({ id: 4, name: 'Bilal Benlarbi', salary: 40000 }),
+    new Person({ id: 5, name: 'Clément Nonn', salary: 40000 }),
+    new Person({ id: 6, name: 'David Liodenot', salary: 40000 }),
+    new Person({ id: 6, name: 'Donovan Fournier', salary: 40000 }),
+    new Person({ id: 7, name: 'Ghita Laoud', salary: 40000 }),
+    new Person({ id: 8, name: 'Julien Hennet', salary: 40000 }),
+    new Person({ id: 9, name: 'Loic Billaud', salary: 40000 }),
+    new Person({ id: 10, name: 'Marie-Sophie Pascal', salary: 40000 }),
+    new Person({ id: 11, name: 'Mattthias Lao', salary: 40000 }),
+    new Person({ id: 12, name: 'Nicolas Lebrun', salary: 40000 }),
+    new Person({ id: 13, name: 'Nicolas Rivière', salary: 40000 }),
+    new Person({ id: 14, name: 'Pauline Montchau', salary: 40000 }),
+    new Person({ id: 15, name: 'Sylvain Laure', salary: 40000 }),
+    new Person({ id: 16, name: 'Vincent Pradeilles', salary: 40000 })
   ];
   persons.forEach(person => currentMeeting.addPerson(person));
   res.status(200).end();

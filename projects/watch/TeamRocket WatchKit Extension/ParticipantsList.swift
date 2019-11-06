@@ -7,13 +7,12 @@
 //
 
 import SwiftUI
-import Starscream
 
 struct ParticipantsList: View {
-    @EnvironmentObject var moneyCounter: MoneyCounter
+    @EnvironmentObject var viewModel: ViewModel
 
     var body: some View {
-        List(moneyCounter.state!.persons) { person in
+        List(viewModel.meetingState?.persons ?? []) { person in
             Text("\(person.name) : \(person.totalCost) €").bold().font(.system(size:20))
         }
     }
@@ -21,6 +20,6 @@ struct ParticipantsList: View {
 
 struct ParticipantsList_Previews: PreviewProvider {
     static var previews: some View {
-        ParticipantsList().environmentObject(MoneyCounter())
+        ParticipantsList().environmentObject(ViewModel())
     }
 }
